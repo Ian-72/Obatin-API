@@ -2,32 +2,34 @@
 Obatin-API project is part of the Obatin application. This is an API build with the Hapi.js as web application framework, Sequelize as ORM, and node-nlp as a BOT mockup.
 
 &nbsp;
+Note : for now the bot mockup plugin has been disabled but if you want to activate it, please uncomment the "talk" plugin in the server.js file
 
 ## Features
 * Build with Hapi Js framework so that code can be easily modularized
 * API documentations with Swagger
-* Token based authentication
+* Bearer authentication
+* In-Memory Cache with Memcached
 
 ## Project structure 
 * **src**
-  * **api** (this folder like controller folder)
+  * **api** (custom plugin)
     * **authentications**
-      * documentations.js
+      * documentations.js (documentation and authentication need to be stored here)
       * handler.js
       * index.js
       * routes.js
     * **ML**
     * **talk**
     * **users**
-  * **bot** (storing intents and model)
-  * **config**
+  * **bot** (storing intents and model from the bot mockup)
+  * **config** (db config)
   * **exceptions** (handling error exceptions)
   * **migrations** (migration files)
   * **models** (contains all of model classes)
-  * **services** (business logic here alias service layer)
-  * **tokenize** 
-  * **utils** (This directory contains several utility programs and libraries)
-  * **validator** (validation user input, validation use JOI)
+  * **services** (service layer)
+  * **tokenize** (set of functions to handle jwt tokens)
+  * **utils** (This directory contains several utility programs)
+  * **validator** (validation input output)
   * server.js (function that start hapi server)
   * swaggerOption.js (swagger options)
 * .env (environment file)

@@ -19,7 +19,7 @@ const doc = {
           data: {
             response: Joi.object({
               label: Joi.string(),
-              namaobat: Joi.string(),
+              namaobat: Joi.string().allow(''),
               status: Joi.number(),
             }),
           },
@@ -57,7 +57,7 @@ const doc = {
   postGetMessageDoc: {
     auth: 'obatin_api_jwt',
     description: 'Talk to BOT',
-    notes: 'This endpoint similar to /database, payload only contains label and nama obat field',
+    notes: 'This endpoint similar to /database, payload only contains label and namaobat field',
     tags: ['api', 'bot'],
     validate: {
       payload: Joi.object({

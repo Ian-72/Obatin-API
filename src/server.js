@@ -23,6 +23,7 @@ const swaggerOption = require('./swaggerOption');
 
 const users = require('./api/users');
 const UserService = require('./services/postgres/UsersService');
+const MemcachedService = require('./services/memchached/MemchachedService');
 const UserValidator = require('./validator/users');
 
 const authentications = require('./api/authentications');
@@ -31,7 +32,7 @@ const TokenManager = require('./tokenize/TokenManager');
 const AuthenticationsValidator = require('./validator/authentications');
 const AuthenticationError = require('./exceptions/AuthenticationError');
 
-const ml = require('./api/ML');
+const ml = require('./api/ml');
 const MlValidator = require('./validator/ml');
 
 const url = process.env.ML_API;
@@ -40,9 +41,15 @@ const url = process.env.ML_API;
 // const botDir = `${__dirname}/bot`;
 
 (async () => {
+  const date = new Date().toLocaleString('en-US', {
+    timeZone: 'Asia/Jakarta',
+  });
+  const currentHour = date.slice(10, 17);
+
   // membuat instance dari Class NlpService dengan parameter direktori model (botDir)
-//  const nlpService = new NlpService(botDir);
-  const userService = new UserService();
+  //  const nlpService = new NlpService(botDir);
+  const memcachedService = new MemcachedService();
+  const userService = new UserService(memcachedService);
   const authenticationService = new AuthenticationService();
 
   // Konfigurasi server
@@ -76,7 +83,13 @@ const url = process.env.ML_API;
         data: {},
       }).code(response.statusCode); // 400
     }
-
+    if (response.isServer) {
+      console.log(`Error : ${response.message}`);
+      return h.response({
+        status: 'Server Error',
+        message: 'An internal server error occurred',
+      }).code(500); // 500
+    }
     // meneruskan response
     return response.continue || response;
   });
@@ -146,7 +159,7 @@ const url = process.env.ML_API;
   ]);
 
   server.events.on('response', (request) => {
-    console.log(`${request.info.remoteAddress}: ${request.method.toUpperCase()} ${request.path} --> ${request.response.statusCode}`);
+    console.log(`${currentHour} | ${request.response.statusCode} | ${request.info.remoteAddress} : ${request.method.toUpperCase()} ${request.path}`);
   });
 
   // Server dimulai

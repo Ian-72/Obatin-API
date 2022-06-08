@@ -7,11 +7,7 @@ class AuthenticationService {
   }
 
   async addRefreshToken(refreshToken) {
-    try {
-      await this._model.create({ token: refreshToken });
-    } catch (error) {
-      console.log(error);
-    }
+    await this._model.create({ token: refreshToken });
   }
 
   async verifyRefreshToken({ refreshToken }) {
@@ -23,11 +19,7 @@ class AuthenticationService {
   }
 
   async deleteRefreshToken({ refreshToken }) {
-    try {
-      await this._model.destroy({ where: { token: refreshToken } });
-    } catch (error) {
-      console.log(error);
-    }
+    await this._model.destroy({ where: { token: refreshToken } });
   }
 }
 
