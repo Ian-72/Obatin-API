@@ -55,5 +55,5 @@ Note : for now the bot mockup plugin has been disabled but if you want to activa
   $ docker run --rm --name cc-api -e NODE_ENV=production -e MIGRATE=1 -e HOST=0.0.0.0 -e PORT=5000 -e DB_HOST=172.17.0.7 -e DB_USERNAME=username -e DB_PASSWORD=secretpass -e DB_DATABASE=my_db -e DB_DIALECT=postgres -e ACCESS_TOKEN_AGE=900 -e ACCESS_TOKEN_KEY=nmcd8sajdsa8 -e REFRESH_TOKEN_KEY=mcd9aidmacid -e ML_API=http://ml-api.com -p 5000:5000 c22-ps234-cc-api:latest
   ```
 
-6) View the API documentation at (if you user development environtment)
+6) View the API documentation at
 [http://localhost:5000/docs](http://localhost:5000/docs)
