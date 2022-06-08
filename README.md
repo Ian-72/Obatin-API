@@ -45,28 +45,15 @@ Note : for now the bot mockup plugin has been disabled but if you want to activa
   $ cd Obatin-API
   ```
 
-3) Install the required modules
+3) Build docker image
   ```
-  $ npm install
-  ```
-
-4) Don't forget to set host, port, token, and external ML API url in .env file, if you want to run this server in production set config in .env file for the database configurations else if you want to run in development set in ./src/config/config.js
-
-5) run migrate
-  ```
-  $ npm run migrate
+  $ docker build -t c22-ps234-cc-api:latest .
   ```
 
-6) Start API server
-  * run in development
-    ```
-    $ npm run start-dev
-    ```
-  * but if you want to run in production
-    ```
-    $ npm i -g pm2
-    $ npm run start-prod
-    ```
+5) run container, dont forget to change environment, MIGRATE=1 (optional it's for database migration), example
+  ```
+  $ docker run --rm --name cc-api -e NODE_ENV=production -e MIGRATE=1 -e HOST=0.0.0.0 -e PORT=5000 -e DB_HOST=172.17.0.7 -e DB_USERNAME=username -e DB_PASSWORD=secretpass -e DB_DATABASE=my_db -e DB_DIALECT=postgres -e ACCESS_TOKEN_AGE=900 -e ACCESS_TOKEN_KEY=nmcd8sajdsa8 -e REFRESH_TOKEN_KEY=mcd9aidmacid -e ML_API=http://ml-api.com -p 5000:5000 c22-ps234-cc-api:latest
+  ```
 
-7) View the API documentation at (if you user development environtment)
+6) View the API documentation at (if you user development environtment)
 [http://localhost:5000/docs](http://localhost:5000/docs)
