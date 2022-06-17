@@ -79,6 +79,7 @@ const url = process.env.ML_API;
       }).code(response.statusCode); // 400
     }
     if (response.isServer) {
+      // eslint-disable-next-line no-console
       console.log(`Error message: ${response.message}`);
       return h.response({
         status: 'Server Error',
