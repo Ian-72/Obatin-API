@@ -159,11 +159,14 @@ const url = process.env.ML_API;
       timeZone: 'Asia/Jakarta',
     });
     const currentHour = date.slice(16, 24);
+    // eslint-disable-next-line no-console
     console.log(`${currentHour} | ${request.response.statusCode} | ${request.info.remoteAddress} : ${request.method.toUpperCase()} ${request.path}`);
   });
 
   // Server dimulai
+  // eslint-disable-next-line no-console
   console.log(`using ${process.env.NODE_ENV} environment`);
+  // eslint-disable-next-line no-console
   console.log(`server running on ${server.info.uri}`);
   await server.start();
 })();
