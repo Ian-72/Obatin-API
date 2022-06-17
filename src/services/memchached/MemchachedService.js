@@ -14,6 +14,11 @@ class MemcachedService {
     const result = await this._client.get(key);
     return JSON.parse(result.value);
   }
+
+  async del(key) {
+    await this._client.delete(key);
+    return true;
+  }
 }
 
 module.exports = MemcachedService;
